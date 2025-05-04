@@ -37,6 +37,7 @@
       </div>
       <div class="col-12 col-md-8">
         <total-proyectos
+        :limpiar="limpiar"
           :numeroProyectos="numeroProyectos"
           :proyectos="proyectos"
           :cambiarEstado="cambiarEstado"
@@ -63,11 +64,18 @@ export default {
     completado: false,
   }),
   methods: {
+    limpiar(){
+    console.log("ddd");
+ this.proyectos = []
+    localStorage.clear()
+   },
     cambiarEstado(index) {
       this.proyectos[index].urgente = !this.proyectos[index].urgente;
+      this.saveData()
     },
     cambiarCompleto(index) {
       this.proyectos[index].completado = !this.proyectos[index].completado;
+      this.saveData()
     },
     registrarProyecto() {
       const proyecto = {
@@ -79,9 +87,14 @@ export default {
       console.log(proyecto);
 
       this.proyectos.push(proyecto);
+      this.saveData()
       this.proyecto = "";
       this.tipo = "";
       this.urgente = false;
+    },
+    saveData(){
+      localStorage.setItem("proyectos", JSON.stringify(this.proyectos))
+
     },
   },
   computed: {
@@ -96,6 +109,9 @@ export default {
       console.log((completados * 100) / this.numeroProyectos);
       return (completados * 100) / this.numeroProyectos || 0;
     },
+  },
+  mounted() {
+  this.proyectos =  JSON.parse(localStorage.getItem("proyectos")) || []
   },
 };
 </script>

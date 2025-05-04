@@ -1,6 +1,8 @@
 <template>
   <div class="col-12 col-md-8">
+    
     <h3>Total Proyectos: {{ numeroProyectos }}</h3>
+<button class="btn btn-danger" @click="limpiar">Limpiar</button>
     <div class="table-responsive">
       <table class="table">
         <thead>
@@ -41,7 +43,11 @@ export default {
     proyectos: Object,
     cambiarEstado: Function,
     cambiarCompleto: Function,
+    limpiar:Function
   },
+  methods:{
+  
+  }
 };
 </script>
 
